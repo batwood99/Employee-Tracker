@@ -127,3 +127,63 @@ function addRole() {
     });
   });
 }
+
+function addEmployee() {
+  inquirer.prompt([
+    {
+      name: "first_name",
+      message: "What's the employee's first name?",
+      type: "input"
+    },
+    {
+      name: "last_name",
+      message: "What's the employee's last name?",
+      type: "input"
+    },
+    {
+      name: "role_id",
+      message: "What's the employee's role ID?",
+      type: "input"
+    },
+    {
+      name: "manager_id",
+      message: "What's the employee's manager ID?",
+      type: "input"
+    }
+  ]).then(empAns => {
+    db.query(`INSERT INTO employee(first_name, last_name, role_id, manager_id) VALUES("${empAns.first_name}", "${empAns.last_name}", ${empAns.role_id}, ${empAns.manager_id});`, (err, res) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.table(res);
+        chooseRole();
+      }
+    });
+  });
+}
+
+function updateEmployeeRole() {
+  inquirer.prompt([
+    {
+      name: "role_name_update",
+      message: "What's the ID of the employee you'd like to update?",
+      type: "input"
+    },
+    {
+      name: "role_name_update2",
+      message: "What's the ID of the role you'd like to update?",
+      type: "input"
+    }
+  ]).then(updateEmpAns => {
+    db.query(`UPDATE employee SET role_id = ${updateEmpAns.role_name_update2} WHERE id = ${updateEmpAns.role_name_update}`, (err, res) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.table(res);
+        chooseRole();
+      }
+    });
+  });
+}
+
+chooseRole();
