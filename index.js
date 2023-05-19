@@ -13,7 +13,7 @@ const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   password: 'password',
-  database: 'Employee_Tracker'
+  database: 'employees'
 }, console.log('Connected to the election database.'));
 
 db.connect();
